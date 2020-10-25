@@ -1,37 +1,84 @@
 import "./app.css";
 import { createElement } from "./utils/element";
 
-export function createApp() {
-  const app = createElement("div", {
+export function Countdown() {
+  let timeLeft = 3;
+
+  const container = document.createElement("div");
+  container.innerText = timeLeft;
+  const intervalId = setInterval(() => {
+    timeLeft--;
+    container.innerText = timeLeft;
+    if (timeLeft === 0) {
+      clearInterval(intervalId);
+      alert("Time's over");
+    }
+  }, 1000);
+
+  const timer = createElement("div", {
     className: "app",
     children: [
+      createElement("input", {
+        className: "timeInput",
+        type: "number",
+      }),
       createElement("div", {
-        className: "time",
-        innerText: "60",
+        className: "timeOutput",
+        innerText: container,
       }),
       createElement("button", {
         classname: "startTimeButton",
         innerText: "Go!",
-        onclick: () => {
-          createCountdownTimer();
-        },
+        // onclick: () => {
+        //   const seconds = document.querySelector(".timeInput").nodeValue;
+        //   countdown(seconds, timeOutput)
+        // };
       }),
     ],
   });
 
-  // document.createElement("div");
-  // app.className = "app";
-  // app.innerHTML = "60";
+  // return container;
 
-  function createCountdownTimer() {
-    const sec = 30;
-    const timer = setInterval(function () {
-      document.querySelector(".time").innerHTML = "00:" + sec;
-      sec--;
-      if (sec < 0) {
-        clearInterval(timer);
-      }
-    }, 1000);
-  }
-  return app;
+  return timer;
 }
+
+// export function createApp() {
+//   let timeLeft = 4;
+
+//   const timer = createElement("div", {
+//     className: "app",
+//     children: [
+//       createElement("input", {
+//         className: "timeInput",
+//         type: "number",
+//       }),
+//       createElement("div", {
+//         className: "timeOutput",
+//         innerText: countdown,
+//       }),
+//       createElement("button", {
+//         classname: "startTimeButton",
+//         innerText: "Go!",
+//         onclick: () => {
+//           const seconds = document.querySelector(".timeInput").nodeValue;
+//           countdown(seconds, timeOutput)
+//         };
+//       }),
+//     ],
+//   });
+
+//   const countdown = function createCountdown(seconds, timeOutput) {
+
+//     const intervalId = setInterval(() => {
+//       timeLeft--;
+//       container.innerText = timeLeft;
+//       if (timeLeft === 0) {
+//         clearInterval(intervalId);
+//         alert("Time's over");
+//       }
+//     }, 1000);
+//     return container;
+//   };
+
+//   return timer;
+// }
